@@ -6,7 +6,6 @@
 
     let postIdInt = $derived(parseInt(postId));
     let communityIdInt = $derived(parseInt(communityId));
-    console.log("Post.svelte - communityId:", communityIdInt, "postId:", postIdInt);
 
     let postState = usePostState();
 
