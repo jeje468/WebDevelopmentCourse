@@ -13,13 +13,13 @@ const create = async (communityId, post) => {
 
 const findAll = async (communityId) => {
   return await sql`SELECT * FROM posts
-    WHERE community_id = ${communityId}
+    WHERE community_id = ${communityId} AND parent_post_id IS NULL
     ORDER BY created_at;`;
 };
 
 const findById = async (communityId, postId) => {
   const result = await sql`SELECT * FROM posts
-    WHERE community_id = ${communityId} AND id = ${postId};`;
+    WHERE community_id = ${communityId} AND id = ${postId} AND parent_post_id IS NULL;`;
   return result[0];
 };
 

@@ -2,14 +2,11 @@
     import { usePostState } from "$lib/states/postState.svelte.js";
     import {useCommunityState} from "$lib/states/communityState.svelte.js";
 
-    let { communityId, postId } = $props();
-
-    let postIdInt = $derived(parseInt(postId));
-    let communityIdInt = $derived(parseInt(communityId));
+    let{ communityId, postId } = $props();
 
     let postState = usePostState();
 
-    let post = $derived(postState.posts[communityIdInt]?.find(p => p.id === postIdInt));
+    let post = $derived(postState.posts[communityId]?.find(p => p.id === postId));
 
 </script>
 
