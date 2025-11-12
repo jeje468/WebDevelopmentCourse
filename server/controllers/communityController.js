@@ -1,6 +1,7 @@
 import * as communityRepository from "../repositories/communityRepository.js";
 
 const create = async (c) => {
+  const user = c.get("user");
   const community = await c.req.json();
   if (!community.name ||
         !community.description
@@ -8,7 +9,7 @@ const create = async (c) => {
     return c.json({ error: "Missing required fields" }, 400);
   }
 
-  const newCommunity = await communityRepository.create(community);
+  const newCommunity = await communityRepository.create(community, user.id);
   return c.json(newCommunity, 201);
 };
 
@@ -33,12 +34,13 @@ const findById = async (c) => {
 };
 
 const deleteById = async (c) => {
+  const user = c.get("user");
   const id = Number(c.req.param("communityId"));
   if (!Number.isInteger(id)) {
     return c.json({ error: "Invalid id" }, 400);
   }
 
-  const deletedCommunity = await communityRepository.deleteById(id);
+  const deletedCommunity = await communityRepository.deleteById(id, user.id);
 
   if (!deletedCommunity) {
     return c.json({ error: "Community not found" }, 404);

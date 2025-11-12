@@ -2,16 +2,16 @@ import postgres from "postgres";
 
 const sql = postgres();
 
-const create = async (community) => {
-  const result = await sql`INSERT INTO communities (name, description, created_at)
-    VALUES (${community.name}, ${community.description}, NOW())
+const create = async (community, userId) => {
+  const result = await sql`INSERT INTO communities (name, description, created_at, created_by)
+    VALUES (${community.name}, ${community.description}, NOW(), ${userId})
     RETURNING *`;
 
   return result[0];
 };
 
-const deleteById = async (id) => {
-  const result = await sql`DELETE FROM communities WHERE id = ${id} RETURNING *`;
+const deleteById = async (id, userId) => {
+  const result = await sql`DELETE FROM communities WHERE id = ${id} AND created_by = ${userId} RETURNING *`;
 
   return result[0];
 };
