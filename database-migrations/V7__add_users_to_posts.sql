@@ -1,0 +1,3 @@
+ALTER TABLE posts
+  ADD COLUMN created__by INTEGER NOT NULL DEFAULT 1
+  REFERENCES users(id);

@@ -15,14 +15,14 @@ app.get("/api/communities", communityController.findAll);
 app.get("/api/communities/:communityId", communityController.findById);
 app.delete("/api/communities/:communityId", middlewares.authenticate, communityController.deleteById);
 
-app.post("/api/communities/:communityId/posts", postController.create);
+app.post("/api/communities/:communityId/posts", middlewares.authenticate, postController.create);
 app.get("/api/communities/:communityId/posts", postController.findAll);
 app.get("/api/communities/:communityId/posts/:postId", postController.findById);
-app.delete("/api/communities/:communityId/posts/:postId", postController.deleteById);
+app.delete("/api/communities/:communityId/posts/:postId", middlewares.authenticate, postController.deleteById);
 
-app.post("/api/communities/:communityId/posts/:postId/comments", commentController.create);
+app.post("/api/communities/:communityId/posts/:postId/comments", middlewares.authenticate, commentController.create);
 app.get("/api/communities/:communityId/posts/:postId/comments", commentController.findAll);
-app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", commentController.deleteById);
+app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", middlewares.authenticate, commentController.deleteById);
 
 app.post("/api/auth/register", authController.register);
 app.post("/api/auth/login", authController.login);
