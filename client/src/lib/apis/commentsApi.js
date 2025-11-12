@@ -1,4 +1,5 @@
 import { PUBLIC_API_URL } from "$env/static/public";
+import { authFetch } from "$lib/utils/fetchUtils.js";
 
 const readComments = async (communityId, postId) => {
   const response = await fetch(
@@ -8,7 +9,7 @@ const readComments = async (communityId, postId) => {
 };
 
 const createComment = async (communityId, postId, comment) => {
-  const response = await fetch(
+  const response = await authFetch(
     `${PUBLIC_API_URL}/api/communities/${communityId}/posts/${postId}/comments`,
     {
       headers: {
@@ -23,7 +24,7 @@ const createComment = async (communityId, postId, comment) => {
 };
 
 const deleteComment = async (communityId, postId, commentId) => {
-  const response = await fetch(
+  const response = await authFetch(
     `${PUBLIC_API_URL}/api/communities/${communityId}/posts/${postId}/comments/${commentId}`,
     {
       method: "DELETE",
