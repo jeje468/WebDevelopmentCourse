@@ -3,6 +3,7 @@ import { cors } from "@hono/hono/cors";
 import * as communityController from "./controllers/communityController.js";
 import * as postController from "./controllers/postController.js";
 import * as commentController from "./controllers/commentController.js";
+import * as authController from "./controllers/authController.js";
 
 const app = new Hono();
 
@@ -21,5 +22,8 @@ app.delete("/api/communities/:communityId/posts/:postId", postController.deleteB
 app.post("/api/communities/:communityId/posts/:postId/comments", commentController.create);
 app.get("/api/communities/:communityId/posts/:postId/comments", commentController.findAll);
 app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", commentController.deleteById);
+
+app.post("/api/auth/register", authController.register);
+app.post("/api/auth/login", authController.login);
 
 export default app;
